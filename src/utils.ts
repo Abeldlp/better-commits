@@ -12,16 +12,11 @@ export const REGEX_START_TAG = new RegExp(/^(\w+-\d+)/);
 export const REGEX_SLASH_NUM = new RegExp(/\/(\d+)/);
 export const REGEX_START_NUM = new RegExp(/^(\d+)/);
 export const DEFAULT_TYPE_OPTIONS = [
-  { value: "build", label: "build" },
-  { value: "chore", label: "chore" },
-  { value: "ci", label: "ci" },
-  { value: "docs", label: "docs" },
   { value: "feat", label: "feat" },
   { value: "fix", label: "fix" },
-  { value: "perf", label: "perf" },
-  { value: "revert", label: "revert" },
+  { value: "docs", label: "docs" },
   { value: "refactor", label: "refactor" },
-  { value: "style", label: "style" },
+  { value: "perf", label: "perf" },
   { value: "test", label: "test" },
   { value: "", label: "none" },
 ];
@@ -35,7 +30,7 @@ export const DEFAULT_SCOPE_OPTIONS = [
 export const COMMIT_FOOTER_OPTIONS = [
   {
     value: "refs",
-    label: "refs",
+    label: "refs <ticket>",
     hint: "References the ticket",
   },
   {
@@ -77,6 +72,7 @@ export function infer_type_from_branch(types: string[]): string {
   } catch (err) {
     return "";
   }
+
   const found = types.find((t) => {
     const start_dash = new RegExp(`^${t}-`);
     const between_dash = new RegExp(`-${t}-`);

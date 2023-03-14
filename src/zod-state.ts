@@ -38,7 +38,7 @@ export const Config = z
     commit_scope: z
       .object({
         enable: z.boolean().default(true),
-        initial_value: z.string().default("app"),
+        initial_value: z.string().default("none"),
         options: z
           .array(
             z.object({
