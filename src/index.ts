@@ -270,6 +270,10 @@ async function main(config: z.infer<typeof Config>) {
       commit_state.closes = "Closes:";
     }
 
+    if (commit_footer.includes("refs")) {
+      commit_state.refs = "Refs:";
+    }
+
     if (commit_footer.includes("custom")) {
       const custom_footer = (await p.text({
         message: "Write a custom footer",
@@ -376,6 +380,14 @@ function build_commit_string(
       .map((v) => (colorize ? color.reset(v.trim()) : v.trim()))
       .join("\n");
     commit_string += colorize ? `\n\n${res}` : `\n\n${res}`;
+  }
+
+  if (commit_state.refs && commit_state.ticket) {
+    commit_string += colorize
+      ? `\n\n${color.reset(commit_state.refs)} ${color.magenta(
+          commit_state.ticket
+        )}`
+      : `\n\n${commit_state.refs} ${commit_state.ticket}`;
   }
 
   if (commit_state.closes && commit_state.ticket) {
